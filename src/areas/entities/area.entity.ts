@@ -10,6 +10,9 @@ export class Area {
   @Column({ unique: true })
   name: string;
 
+  @Column()
+  active: boolean;
+
   @OneToMany(() => Professional, (professional) => professional.area)
   professionals: Professional[];
 

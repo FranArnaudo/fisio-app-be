@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Patient } from '../../patients/entities/patient.entity';
 import { Service } from 'src/service/entities/service.entity';
 
@@ -16,16 +10,10 @@ export class Healthcare {
   @Column()
   name: string;
 
-  @Column('numeric', { array: true })
-  sessionPriceByArea: number[];
-
-  @Column('numeric', { array: true })
-  copayByArea: number[];
-
   @Column('boolean', { default: true })
   active: boolean;
 
-  @ManyToMany(() => Patient, (patient) => patient.healthcares, {
+  @OneToMany(() => Patient, (patient) => patient.healthcares, {
     onDelete: 'NO ACTION',
   })
   patients: Patient[];

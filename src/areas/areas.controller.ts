@@ -1,7 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { AreasService } from './areas.service';
 import { CreateAreaDto } from './dto/create-area.dto';
-import { UpdateAreaDto } from './dto/update-area.dto';
 
 @Controller('areas')
 export class AreasController {
@@ -13,18 +20,29 @@ export class AreasController {
   }
 
   @Get()
-  findAll() {
-    return this.areasService.findAll();
+  findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('sort') sort: string,
+    @Query('order') order: 'ASC' | 'DESC',
+    @Query('name') name: string,
+  ) {
+    if (page || limit || sort || name || order) {
+      return this.areasService.findAllPaginated({
+        page,
+        limit,
+        sort,
+        name,
+        order,
+      });
+    } else {
+      return this.areasService.findAll();
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.areasService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAreaDto: UpdateAreaDto) {
-    return this.areasService.update(+id, updateAreaDto);
   }
 
   @Delete(':id')
