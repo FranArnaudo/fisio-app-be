@@ -60,6 +60,16 @@ export class AreasService {
     return `This action returns all areas`;
   }
 
+  async findForDropdown(): Promise<
+    { id: string; value: string; text: string }[]
+  > {
+    const area = await this.areaRepository.find();
+    return area.map((area) => ({
+      id: area.id,
+      value: area.id,
+      text: area.name,
+    }));
+  }
   findOne(id: number) {
     return `This action returns a #${id} area`;
   }

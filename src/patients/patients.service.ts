@@ -68,7 +68,6 @@ export class PatientsService {
     { id: string; value: string; text: string }[]
   > {
     const patients = await this.patientRepository.find();
-    console.log('🚀Fran ~ file: patients.service.ts:67 ~ patients:', patients);
     return patients.map((patient) => ({
       id: patient.id,
       value: patient.id,

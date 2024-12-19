@@ -40,6 +40,10 @@ export class AreasController {
     }
   }
 
+  @Get('dropdown')
+  findForDropdown() {
+    return this.areasService.findForDropdown();
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.areasService.findOne(+id);

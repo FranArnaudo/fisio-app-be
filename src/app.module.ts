@@ -13,8 +13,8 @@ import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { CenterModule } from './center/center.module';
 import { HealthcareModule } from './healthcare/healthcare.module';
-import { ServicetypeModule } from './servicetype/servicetype.module';
-import { ServiceModule } from './service/service.module';
+import { CoveragesModule } from './coverages/coverages.module';
+import { ServicesModule } from './services/services.module';
 
 @Module({
   imports: [
@@ -31,8 +31,8 @@ import { ServiceModule } from './service/service.module';
     MeasurementTypesModule,
     CenterModule,
     HealthcareModule,
-    ServicetypeModule,
-    ServiceModule,
+    CoveragesModule,
+    ServicesModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

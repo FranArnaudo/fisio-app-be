@@ -14,7 +14,7 @@ export class Patient {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: true })
   dni: string;
 
   @Column()

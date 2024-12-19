@@ -1,9 +1,11 @@
+import { Transform } from 'class-transformer';
 import {
   IsDateString,
   IsString,
   IsOptional,
   IsNotEmpty,
   IsNumber,
+  IsDefined,
 } from 'class-validator';
 
 export class CreateAppointmentDto {
@@ -28,4 +30,12 @@ export class CreateAppointmentDto {
   @IsOptional()
   @IsNumber({}, { message: 'La duración debe ser un número.' })
   duration?: number;
+
+  @IsDefined({ message: 'El paciente es obligatorio.' })
+  @Transform(({ value }) => ({ id: value }))
+  patient: { id: string };
+
+  @IsDefined({ message: 'El profesional es obligatorio.' })
+  @Transform(({ value }) => ({ id: value }))
+  professional: { id: string };
 }

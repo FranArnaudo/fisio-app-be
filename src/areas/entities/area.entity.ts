@@ -1,5 +1,5 @@
 import { Professional } from 'src/professionals/entities/professional.entity';
-import { Service } from 'src/service/entities/service.entity';
+import { Service } from 'src/services/entities/service.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()

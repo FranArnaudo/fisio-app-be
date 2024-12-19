@@ -61,8 +61,8 @@ export class HealthcareService {
     return `This action returns all healthcare`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} healthcare`;
+  findOne(id: string) {
+    return this.healthcareRepository.findOneBy({ id: id });
   }
 
   async toggle(id: string) {

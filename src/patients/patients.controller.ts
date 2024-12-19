@@ -44,7 +44,6 @@ export class PatientsController {
 
   @Get('dropdown')
   findForDropdown() {
-    console.log('asda');
     return this.patientsService.findForDropdown();
   }
   @Get(':id')

@@ -42,7 +42,7 @@ export class HealthcareController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.healthcareService.findOne(+id);
+    return this.healthcareService.findOne(id);
   }
 
   @Patch(':id/toggle')

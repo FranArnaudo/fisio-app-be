@@ -44,6 +44,10 @@ export class AppointmentsService {
           ),
         },
       });
+      console.log(
+        '🚀Fran ~ file: appointments.service.ts:47 ~ findForCalendar ~ appointments:',
+        appointments,
+      );
       const mappedAppointments = await Promise.all(
         appointments.map((appointment) => ({
           id: appointment.id,
