@@ -5,9 +5,9 @@ const dataSource = new DataSource({
   type: 'postgres',
   host: 'localhost', // Change as needed
   port: 5432,
-  username: 'postgres',
+  username: 'fran',
   password: 'Fran24',
-  database: 'fisio-app',
+  database: process.env.POSTGRES_DB || 'fisio-app',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
   synchronize: false, // Migrations handle schema changes
