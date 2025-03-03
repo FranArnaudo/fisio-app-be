@@ -27,6 +27,7 @@ export class AuthService {
   }
 
   async validateUser(username: string, password: string) {
+    console.log('LOGUEANDO',username)
     const professional =
       await this.professionalsService.findByUsername(username);
 
@@ -41,6 +42,7 @@ export class AuthService {
   }
 
   async login(professionalLoginData: { username: string; id: string }) {
+    console.log('LOGUEANDO',professionalLoginData)
     const professional = await this.professionalsService.findByUsername(
       professionalLoginData.username,
     );

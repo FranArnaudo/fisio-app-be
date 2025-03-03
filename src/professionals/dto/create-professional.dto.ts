@@ -22,6 +22,10 @@ export class CreateProfessionalDto {
   email?: string;
 
   @IsOptional()
+  @IsString()
+  colorHex?: string;
+
+  @IsOptional()
   @IsUUID()
   areaId?: string; // Foreign key to Area
 }

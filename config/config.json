@@ -1,0 +1,9 @@
+{
+    "development":{
+        "username":"postgres",
+        "password":"Fran24",
+        "database":"fisio-app",
+        "host":"127.0.0.1",
+        "dialect":"postgres"
+    }
+}

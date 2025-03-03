@@ -84,7 +84,15 @@ export class AppointmentsService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} appointment`;
+  remove(id: string) {
+    try {
+      const deletedAppointment = this.appointmentRepository.delete(
+        id,
+      );
+      return deletedAppointment;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException('Hubo un error al eliminar el turno', 400);
+    }
   }
 }

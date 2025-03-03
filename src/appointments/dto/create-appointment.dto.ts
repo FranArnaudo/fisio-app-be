@@ -38,4 +38,8 @@ export class CreateAppointmentDto {
   @IsDefined({ message: 'El profesional es obligatorio.' })
   @Transform(({ value }) => ({ id: value }))
   professional: { id: string };
+
+  @IsDefined({ message: 'El creador es obligatorio.' })
+  @Transform(({ value }) => ({ id: value }))
+  createdBy: { id: string };
 }

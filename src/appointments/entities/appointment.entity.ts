@@ -18,6 +18,9 @@ export class Appointment {
 
   @ManyToOne(() => Professional, { eager: true }) // Eager loading ensures the professional is always included
   professional: Professional;
+  
+  @ManyToOne(() => Professional, { eager: true }) 
+  createdBy: Professional;
 
   @Column({ type: 'timestamp' })
   appointmentDatetime: Date;

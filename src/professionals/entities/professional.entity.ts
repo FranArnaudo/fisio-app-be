@@ -23,6 +23,9 @@ export class Professional {
 
   @Column({ length: 255, nullable: true })
   email?: string;
+  
+  @Column({ length: 255, nullable: true })
+  colorHex?: string;
 
   @ManyToOne(() => Area, (area) => area.professionals, { nullable: true })
   area?: Area; // Foreign key to the Area entity
