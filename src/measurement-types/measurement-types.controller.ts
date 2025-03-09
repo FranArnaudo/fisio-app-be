@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { MeasurementTypesService } from './measurement-types.service';
 import { CreateMeasurementTypeDto } from './dto/create-measurement-type.dto';
 import { UpdateMeasurementTypeDto } from './dto/update-measurement-type.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('measurement-types')
 export class MeasurementTypesController {
   constructor(private readonly measurementTypesService: MeasurementTypesService) {}

@@ -1,34 +1,35 @@
 version: '3'
 services:
-  db:
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Fran24
-      POSTGRES_DB: fisio-app
+  frontend:
+    image: franarnaudo/fisio-app:fisio-app-fe-axis
     ports:
-      - '5432:5432'
+      - "3001:80"
+    environment:
+      - VITE_API_URL=http://localhost:8080
+    restart: always
 
   backend:
-    build: .
-    depends_on:
-      - db
+    image: franarnaudo/fisio-app:fisio-app-be-axis
+    ports:
+      - "8080:3000"
     environment:
-      # Use the service name "db" as the database host
-      POSTGRES_HOST: db
-      POSTGRES_PORT: 5432
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Fran24
+      - POSTGRES_DB=fisio-app
+    restart: always
+
+  database:
+    image: postgres:13
+    environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Fran24
       POSTGRES_DB: fisio-app
-    ports:
-      - '3000:3000'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: always
 
-  frontend:
-    build: ../fisio-app-fe
-    depends_on:
-      - backend
-    environment:
-      REACT_APP_API_URL: http://127.0.0.1:3000
-    ports:
-      - '3001:3001'
-
+volumes:
+  db-data:
+    driver: local

@@ -4,10 +4,8 @@ FROM node:20
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package files and install dependencies
 COPY package*.json ./
-
-# Install the application dependencies
 RUN npm install
 
 # Copy the rest of the application files

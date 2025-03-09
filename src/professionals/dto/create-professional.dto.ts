@@ -28,4 +28,7 @@ export class CreateProfessionalDto {
   @IsOptional()
   @IsUUID()
   areaId?: string; // Foreign key to Area
+
+  @IsString()
+  adminPassword: string;
 }

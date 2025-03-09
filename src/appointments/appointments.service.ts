@@ -44,10 +44,7 @@ export class AppointmentsService {
           ),
         },
       });
-      console.log(
-        '🚀Fran ~ file: appointments.service.ts:47 ~ findForCalendar ~ appointments:',
-        appointments,
-      );
+   
       const mappedAppointments = await Promise.all(
         appointments.map((appointment) => ({
           id: appointment.id,
@@ -66,6 +63,25 @@ export class AppointmentsService {
       console.log(error);
       throw new HttpException('Hubo un error buscando los turnos', 400);
     }
+  }
+
+  async findByPatient(patientId: string): Promise<Appointment[]> {
+    try {
+      
+    
+    return this.appointmentRepository.find({
+      where: {
+        patient: {
+          id: patientId,
+        },
+      },
+      order: {
+        appointmentDatetime: 'DESC', 
+      },
+    });
+  } catch (error) {
+    throw new HttpException('Hubo un error buscando los turnos del paciente', 400);
+  }
   }
   findOne(id: number) {
     return `This action returns a #${id} appointment`;

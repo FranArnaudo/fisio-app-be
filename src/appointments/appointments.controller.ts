@@ -8,11 +8,14 @@ import {
   Delete,
   Query,
   HttpException,
+  UseGuards,
 } from '@nestjs/common';
 import { AppointmentsService } from './appointments.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('appointments')
 export class AppointmentsController {
   constructor(private readonly appointmentsService: AppointmentsService) {}
@@ -36,6 +39,12 @@ export class AppointmentsController {
   findForCalendar(@Query('start') start: string, @Query('end') end: string) {
     return this.appointmentsService.findForCalendar(start, end);
   }
+
+  @Get('patient/:id')
+  findByPatient(@Param('id') id: string){
+    return this.appointmentsService.findByPatient(id)
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.appointmentsService.findOne(+id);

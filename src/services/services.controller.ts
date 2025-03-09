@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('services')
 export class ServicesController {
   constructor(private readonly servicesService: ServicesService) {}
@@ -44,10 +47,6 @@ export class ServicesController {
 
   @Get('dropdown/:id')
   findForDropdown(@Param('id') id?: string) {
-    console.log(
-      '🚀Fran ~ file: services.controller.ts:47 ~ findForDropdown ~ id:',
-      id,
-    );
     return this.servicesService.findForDropdown(id);
   }
   @Get(':id')
