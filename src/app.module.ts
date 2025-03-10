@@ -15,6 +15,7 @@ import { CenterModule } from './center/center.module';
 import { HealthcareModule } from './healthcare/healthcare.module';
 import { CoveragesModule } from './coverages/coverages.module';
 import { ServicesModule } from './services/services.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { ServicesModule } from './services/services.module';
     HealthcareModule,
     CoveragesModule,
     ServicesModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthService],

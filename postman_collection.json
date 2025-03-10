@@ -1,0 +1,129 @@
+{
+    "name": "Healthcare",
+    "item": [
+        {
+            "name": "Get All Healthcare Providers",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{API_URL}}/healthcare?page=1&limit=10&sort=name&order=ASC&name=",
+                    "host": [
+                        "{{API_URL}}"
+                    ],
+                    "path": [
+                        "healthcare"
+                    ],
+                    "query": [
+                        {
+                            "key": "page",
+                            "value": "1"
+                        },
+                        {
+                            "key": "limit",
+                            "value": "10"
+                        },
+                        {
+                            "key": "sort",
+                            "value": "name"
+                        },
+                        {
+                            "key": "order",
+                            "value": "ASC"
+                        },
+                        {
+                            "key": "name",
+                            "value": ""
+                        }
+                    ]
+                },
+                "description": "Get all healthcare providers with pagination, sorting and optional name filter"
+            },
+            "response": []
+        },
+        {
+            "name": "Create Healthcare Provider",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"name\": \"OSDE\",\n    \"active\": true\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{API_URL}}/healthcare",
+                    "host": [
+                        "{{API_URL}}"
+                    ],
+                    "path": [
+                        "healthcare"
+                    ]
+                },
+                "description": "Create a new healthcare provider (prepaid medicine company)"
+            },
+            "response": []
+        },
+        {
+            "name": "Get Healthcare Provider by ID",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{API_URL}}/healthcare/{{healthcareId}}",
+                    "host": [
+                        "{{API_URL}}"
+                    ],
+                    "path": [
+                        "healthcare",
+                        "{{healthcareId}}"
+                    ]
+                },
+                "description": "Get a single healthcare provider by ID. Use the {{healthcareId}} variable."
+            },
+            "response": []
+        },
+        {
+            "name": "Toggle Healthcare Status",
+            "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                    "raw": "{{API_URL}}/healthcare/{{healthcareId}}/toggle",
+                    "host": [
+                        "{{API_URL}}"
+                    ],
+                    "path": [
+                        "healthcare",
+                        "{{healthcareId}}",
+                        "toggle"
+                    ]
+                },
+                "description": "Toggle the active status of a healthcare provider (activate/deactivate)"
+            },
+            "response": []
+        }
+    ],
+    "description": "Endpoints for managing healthcare providers (prepaid medicine companies)",
+    "event": [
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Automatically store the healthcare ID when creating a new provider",
+                    "const jsonData = pm.response.json();",
+                    "",
+                    "if (pm.request.method === 'POST' && jsonData && jsonData.status === 200 && jsonData.data && jsonData.data.id) {",
+                    "    pm.collectionVariables.set('healthcareId', jsonData.data.id);",
+                    "    console.log('Stored healthcare ID:', jsonData.data.id);",
+                    "}"
+                ]
+            }
+        }
+    ]
+}
