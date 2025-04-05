@@ -44,4 +44,7 @@ export class Patient {
     cascade: false,
   })
   healthcares: Healthcare[];
+
+  @Column({nullable: true})
+  deleted: boolean
 }

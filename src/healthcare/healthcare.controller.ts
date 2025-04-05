@@ -42,7 +42,10 @@ export class HealthcareController {
       return this.healthcareService.findAll();
     }
   }
-
+  @Get('dropdown')
+  findForDropdown() {
+    return this.healthcareService.findForDropdown();
+  }
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.healthcareService.findOne(id);

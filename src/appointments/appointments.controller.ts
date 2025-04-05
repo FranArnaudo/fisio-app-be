@@ -42,7 +42,12 @@ export class AppointmentsController {
 
   @Get('patient/:id')
   findByPatient(@Param('id') id: string){
-    return this.appointmentsService.findByPatient(id)
+    return this.appointmentsService.findByPatient(id);
+  }
+
+  @Get('professional/:id')
+  findByProfessional(@Param('id') id: string){
+    return this.appointmentsService.findByProfessional(id);
   }
 
   @Get(':id')

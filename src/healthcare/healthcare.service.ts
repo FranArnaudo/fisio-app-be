@@ -57,6 +57,17 @@ export class HealthcareService {
       total: response[1],
     };
   }
+  async findForDropdown(): Promise<{ id: string; value: string; text: string }[]> {
+    const healthcares = await this.healthcareRepository.find({ 
+      where: { active: true } 
+    });
+    
+    return healthcares.map((healthcare) => ({
+      id: healthcare.id,
+      value: healthcare.id,
+      text: healthcare.name,
+    }));
+  }
   findAll() {
     return `This action returns all healthcare`;
   }

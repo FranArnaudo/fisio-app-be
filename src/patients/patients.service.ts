@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Or, Repository } from 'typeorm';
 
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
@@ -39,12 +39,13 @@ export class PatientsService {
     order?: 'ASC' | 'DESC';
     name?: string;
   }) {
-    const queryBuilder = this.patientRepository.createQueryBuilder('patient');
+    const queryBuilder = this.patientRepository.createQueryBuilder('patient').where('patient.deleted is not true');
 
     if (name) {
       queryBuilder.andWhere(
         "CONCAT(patient.firstname, ' ', patient.lastname) ILIKE :name",
-        { name: `%${name}%` },
+        { name: `%${name}%`},
+        
       );
     }
 
@@ -67,7 +68,8 @@ export class PatientsService {
   async findForDropdown(): Promise<
     { id: string; value: string; text: string }[]
   > {
-    const patients = await this.patientRepository.find();
+    const patients = await this.patientRepository.find({where:{deleted:false}});
+    console.log(patients)
     return patients.map((patient) => ({
       id: patient.id,
       value: patient.id,
@@ -85,6 +87,6 @@ export class PatientsService {
     if (!patient) {
       throw new Error(`Patient with ID ${id} not found`);
     }
-    return await this.patientRepository.remove(patient);
+    return await this.patientRepository.update({id},{deleted:true});
   }
 }

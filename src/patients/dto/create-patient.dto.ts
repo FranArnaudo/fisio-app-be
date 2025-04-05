@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsEmail, IsDate } from 'class-validator';
+import { IsString, IsOptional, IsEmail, IsDate, IsBoolean } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
 export class CreatePatientDto {
@@ -39,4 +39,8 @@ export class CreatePatientDto {
   @IsOptional()
   @IsString()
   dni?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  deleted?: boolean = false
 }

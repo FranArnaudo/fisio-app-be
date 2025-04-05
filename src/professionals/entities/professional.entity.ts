@@ -29,4 +29,7 @@ export class Professional {
 
   @ManyToOne(() => Area, (area) => area.professionals, { nullable: true })
   area?: Area; // Foreign key to the Area entity
+
+  @Column({default: false})
+  deleted?: boolean
 }

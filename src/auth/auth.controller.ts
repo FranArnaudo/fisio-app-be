@@ -15,11 +15,12 @@ export class AuthController {
   async login(
     @Body('username') username: string,
     @Body('password') password: string,
+    @Body('remember') remember: boolean
   ) {
     const professionalLoginData = await this.authService.validateUser(
       username,
       password,
     );
-    return await this.authService.login(professionalLoginData);
+    return await this.authService.login({...professionalLoginData, remember});
   }
 }

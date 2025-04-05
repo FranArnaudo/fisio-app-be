@@ -67,22 +67,40 @@ export class AppointmentsService {
 
   async findByPatient(patientId: string): Promise<Appointment[]> {
     try {
-      
-    
-    return this.appointmentRepository.find({
-      where: {
-        patient: {
-          id: patientId,
+      return this.appointmentRepository.find({
+        where: {
+          patient: {
+            id: patientId,
+          },
         },
-      },
-      order: {
-        appointmentDatetime: 'DESC', 
-      },
-    });
-  } catch (error) {
-    throw new HttpException('Hubo un error buscando los turnos del paciente', 400);
+        order: {
+          appointmentDatetime: 'DESC', 
+        },
+      });
+    } catch (error) {
+      throw new HttpException('Hubo un error buscando los turnos del paciente', 400);
+    }
   }
+
+  async findByProfessional(professionalId: string): Promise<Appointment[]> {
+    try {
+      return this.appointmentRepository.find({
+        where: {
+          professional: {
+            id: professionalId,
+          },
+        },
+        order: {
+          appointmentDatetime: 'DESC',
+        },
+        relations: ['patient', 'professional'],
+      });
+    } catch (error) {
+      console.error('Error finding appointments by professional:', error);
+      throw new HttpException('Hubo un error buscando los turnos del profesional', 400);
+    }
   }
+
   findOne(id: number) {
     return `This action returns a #${id} appointment`;
   }

@@ -40,7 +40,7 @@ export class AuthService {
     return professional;
   }
 
-  async login(professionalLoginData: { username: string; id: string }) {
+  async login(professionalLoginData: { username: string; id: string, remember: boolean }) {
     const professional = await this.professionalsService.findByUsername(
       professionalLoginData.username,
     );
@@ -48,7 +48,7 @@ export class AuthService {
       ...professional,
     };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload,{expiresIn: professionalLoginData.remember ? '1m' : '1h'}),
     };
   }
 }
