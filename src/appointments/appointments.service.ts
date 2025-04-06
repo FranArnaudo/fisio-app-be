@@ -4,26 +4,37 @@ import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Appointment } from './entities/appointment.entity';
 import { Between, Repository } from 'typeorm';
-import * as dayjs from 'dayjs';
+// appointments.service.ts
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('America/Argentina/Buenos_Aires');
 @Injectable()
 export class AppointmentsService {
   constructor(
     @InjectRepository(Appointment)
     private readonly appointmentRepository: Repository<Appointment>,
   ) {}
-  create(createAppointmentDto: CreateAppointmentDto) {
-    let created;
+  async create(createAppointmentDto: CreateAppointmentDto) {
     try {
-      const newAppointment =
-        this.appointmentRepository.create(createAppointmentDto);
-      created = this.appointmentRepository.save(newAppointment);
+      // Ensure the appointment datetime is interpreted in Argentina timezone
+      const appointmentDate = dayjs.tz(createAppointmentDto.appointmentDatetime, 'America/Argentina/Buenos_Aires').toDate();
+      
+      const newAppointment = this.appointmentRepository.create({
+        ...createAppointmentDto,
+        appointmentDatetime: appointmentDate,
+      });
+      
+      return this.appointmentRepository.save(newAppointment);
     } catch (error) {
       console.log(error);
       throw new HttpException('Hubo un error creando el turno', 400);
     }
-    return created;
   }
+  
 
   findAll() {
     try {

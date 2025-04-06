@@ -22,7 +22,7 @@ export class Appointment {
   @ManyToOne(() => Professional, { eager: true }) 
   createdBy: Professional;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamptz', nullable:true }) // Use timestamp with time zone
   appointmentDatetime: Date;
 
   @Column({ type: 'varchar', length: 20 })
